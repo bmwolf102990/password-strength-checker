@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{{ static }}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Password Strength Checker</title>
+    </head>
+
+    <body>
+        <h2>Enter your password below:</h2>
+        <form method="POST" action="{% url 'password_checker' %}">
+            {% csrf_token %}
+
+            {{ form }}
+
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if offline_fast_hash != '' %}
+        <p><b>Online w/ Throttling</b>: <i>{{ online_throttling }}</i></p>
+        <p><b>Online w/ No Throttling</b>: <i>{{ online_no_throttling }}</i></p>
+        <p><b>Offline Slow Hashing</b>: <i>{{ offline_slow_hash }}</i></p>
+        <p><b>Offline Fast Hashing Attack</b>: <i>{{ offline_fast_hash }}</i></p>
+        {% endif %}
+    </body>
+</html>
